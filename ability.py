@@ -1,7 +1,7 @@
 import random
 
 class Ability:
-  def __init__(self, name, max_damage):
+  def __init__(self, name:str, max_damage:int):
     self.name = name
     self.max_damage = max_damage
 
