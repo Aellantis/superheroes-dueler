@@ -22,14 +22,30 @@ class Hero:
     for ability in self.abilities:
         total_damage += ability.attack()
     return total_damage
+  
+  def add_armor(self, armor):
+    self.armors.append(armor)
+  
+  def defend (self):
+     total_blocked = 0
+     for blocked_damage in self.armors:
+        total_blocked += blocked_damage.block()
+        if self.starting_health == 0:
+           print("Your hero is dead. It can't defend!")
+     return total_blocked
 
 if __name__ == "__main__":
     ability = Ability("Great Debugging", 50)
     another_ability = Ability("Smarty Pants", 90)
+    armor = Armor("Debugging Armor", 70)
+    another_armor = Armor ("Coding Armor", 80)
     hero = Hero("Grace Hopper", 200)
+    hero.add_armor(armor)
+    hero.add_armor(another_armor)
     hero.add_ability(ability)
     hero.add_ability(another_ability)
     print(hero.attack())
+    print(hero.defend())
   
 # if __name__ == "__main__":
 #     hero1 = Hero("Wonder Woman", 300)
