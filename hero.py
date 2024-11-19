@@ -27,33 +27,27 @@ class Hero:
     self.armors.append(armor)
   
   def defend (self):
-     total_blocked = 0
-     for blocked_damage in self.armors:
-        total_blocked += blocked_damage.block()
-        if self.starting_health == 0:
-           print("Your hero is dead. It can't defend!")
-     return total_blocked
-
-if __name__ == "__main__":
-    ability = Ability("Great Debugging", 50)
-    another_ability = Ability("Smarty Pants", 90)
-    armor = Armor("Debugging Armor", 70)
-    another_armor = Armor ("Coding Armor", 80)
-    hero = Hero("Grace Hopper", 200)
-    hero.add_armor(armor)
-    hero.add_armor(another_armor)
-    hero.add_ability(ability)
-    hero.add_ability(another_ability)
-    print(hero.attack())
-    print(hero.defend())
+    total_blocked = 0
+    for blocked_damage in self.armors:
+      total_blocked += blocked_damage.block()
+      if self.starting_health == 0:
+          print("Your hero is dead. It can't defend!")
+    return total_blocked
   
-# if __name__ == "__main__":
-#     hero1 = Hero("Wonder Woman", 300)
-#     hero2 = Hero("Dumbledore", 250)
-
-#     print(hero1.fight(hero2))
-
-# # if __name__ == "__main__":
-# #   my_hero = Hero("Grace Hopper", 200)
-# #   print(my_hero.name)
-# #   print(my_hero.current_health)
+  def take_damage(self, damage):
+    damage_taken = damage - self.defend() 
+    self.current_health -= max(damage_taken,0)
+    return self.current_health
+  
+  def is_alive(self):
+    if self.current_health <= 0:
+      return False
+    else:
+      return True
+    
+if __name__ == "__main__":
+    hero = Hero("Grace Hopper", 200)
+    hero.take_damage(150)
+    print(hero.is_alive())
+    hero.take_damage(15000)
+    print(hero.is_alive())
